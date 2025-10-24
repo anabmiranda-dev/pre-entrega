@@ -1,0 +1,410 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Black Sabbath - Paranoid - 1970",
+      "description": "Remastered vinyl edition of the classic",
+      "price": 32.99,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_2X_878669-MLA54153944152_032023-F.webp",
+      "category": "Vinyl",
+      "stock": 15
+    },
+    {
+      "id": "2",
+      "name": "Iron Maiden - The Number of the Beast",
+      "description": "Iconic 1982 album in CD format",
+      "price": 14.99,
+      "image": "https://www.maniacsonline.com.au/cdn/shop/products/IronMaiden_TNOTB_3D_digipackshot.jpg?v=1539571875&width=800",
+      "category": "CDs",
+      "stock": 25
+    },
+    {
+      "id": "3",
+      "name": "Master of Puppets Black T-Shirt",
+      "description": "Premium 100% cotton black t-shirt",
+      "price": 24.99,
+      "image": "https://m.media-amazon.com/images/I/81ciCjWTNjL._AC_SX522_.jpg",
+      "category": "Clothing",
+      "stock": 40
+    },
+    {
+      "id": "4",
+      "name": "Official Slayer 'Reign in Blood' Tour T-Shirt",
+      "description": "Premium 100% Cotton Black Tour T-Shirt",
+      "price": 26.99,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_2X_779464-MLA52817271578_122022-F.webp",
+      "category": "Clothing",
+      "stock": 35
+    },
+    {
+      "id": "5",
+      "name": "ESP LTD Electric Guitar - Black Finish",
+      "description": "Kirk Hammett style signature model",
+      "price": 899.99,
+      "image": "https://i0.wp.com/www.inovamusicnet.com/wp-content/uploads/2021/04/410ywGvqipL._AC_US800_.jpg?fit=800%2C800&ssl=1",
+      "category": "Instruments",
+      "stock": 5
+    },
+    {
+      "id": "6",
+      "name": "Pearl Export Satin Black Drum Set",
+      "description": "Acoustic drum set with double bass drum",
+      "price": 1299.99,
+      "image": "https://www.tamtampercusion.com/15319-superlarge_default/pearl-export-lacquer-double-bass-drum-exl727-satin-black.jpg",
+      "category": "Instruments",
+      "stock": 3
+    },
+    {
+      "id": "7",
+      "name": "Judas Priest Vinyl - Painkiller",
+      "description": "Collector's edition in red vinyl",
+      "price": 39.99,
+      "image": "https://m.media-amazon.com/images/I/81XNEZ7MtJL._SL1500_.jpg",
+      "category": "Vinyl",
+      "stock": 12
+    },
+    {
+      "id": "8",
+      "name": "Steel Meets Steel: Ten Years of Glory",
+      "description": "HammerFall compilation album",
+      "price": 29.99,
+      "image": "https://http2.mlstatic.com/D_Q_NP_359321-MLA20763470306_062016-F.webp",
+      "category": "CDs",
+      "stock": 60
+    },
+    {
+      "id": "9",
+      "name": "Slipknot Mask - Joey Jordison",
+      "description": "Plastic mask with black paint details",
+      "price": 19.99,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_2X_942601-MLA91323315592_092025-F.webp",
+      "category": "Collectibles",
+      "stock": 20
+    },
+    {
+      "id": "10",
+      "name": "Slipknot CD - Iowa - 2001 Edition",
+      "description": "Band's second studio album",
+      "price": 13.99,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_759227-CBT74062354083_012024-O.webp",
+      "category": "CDs",
+      "stock": 30
+    },
+    {
+      "id": "11",
+      "name": "Megadeth Vinyl - Rust in Peace",
+      "description": "Limited edition with alternative cover",
+      "price": 34.99,
+      "image": "https://cdn.shopify.com/s/files/1/0050/1009/6221/files/20180917_235818_10330_1057680.jpg",
+      "category": "Vinyl",
+      "stock": 8
+    },
+    {
+      "id": "12",
+      "name": "Pantera Mug - Cowboys from Hell",
+      "description": "Ceramic mug with album artwork",
+      "price": 12.99,
+      "image": "https://uk.panterastore.com/cdn/shop/files/Pantera_CFH_WraparoundMug_2048x2048_4a93a2eb-3908-4df0-a50b-237c92fa16d7.webp?v=1758278165&width=800",
+      "category": "Merch",
+      "stock": 50
+    },
+    {
+      "id": "13",
+      "name": "Black Metal Poster - Darkthrone",
+      "description": "A2 size poster with classic band artwork",
+      "price": 7.99,
+      "image": "https://i.etsystatic.com/53460992/r/il/a44011/6516454902/il_1140xN.6516454902_qb2j.jpg",
+      "category": "Merch",
+      "stock": 45
+    },
+    {
+      "id": "14",
+      "name": "System of a Down Black T-shirt",
+      "description": "Edition with Toxicity album artwork",
+      "price": 23.99,
+      "image": "https://acdn-us.mitiendanube.com/stores/153/100/products/system-of-a-down-8-e6f92fb26c83cf29c017444179652596-1024-1024.webp",
+      "category": "Clothing",
+      "stock": 38
+    },
+    {
+      "id": "15",
+      "name": "Metal Boxset - 20 Album Compilation",
+      "description": "The best of heavy, thrash, and death metal",
+      "price": 149.99,
+      "image": "https://undergroundresistanceforever.wordpress.com/wp-content/uploads/2016/12/mejores-discos-2016.jpg",
+      "category": "CDs",
+      "stock": 6
+    },
+    {
+      "id": "16",
+      "name": "Flying V Electric Guitar",
+      "description": "Classic metal-style guitar with powerful humbuckers and sharp design.",
+      "price": 899.99,
+      "image": "https://r2.gear4music.com/media/106/1061309/1200/preview.jpg",
+      "category": "Instruments",
+      "stock": 3
+    },
+    {
+      "id": "17",
+      "name": "Marshall 100W Amplifier",
+      "description": "Legendary Marshall amp with pure heavy metal tone and vintage drive.",
+      "price": 1199.0,
+      "image": "https://acdn-us.mitiendanube.com/stores/001/331/647/products/d_602356-mla32642902291_102019-o-40299b3bd9ccf3f10917550334131378-1024-1024.webp",
+      "category": "Instruments",
+      "stock": 2
+    },
+    {
+      "id": "18",
+      "name": "Drumstick Set - Black Edition",
+      "description": "Durable black oak sticks with anti-slip grip, perfect for metal drummers.",
+      "price": 24.99,
+      "image": "https://heavenstorage.blob.core.windows.net/storageheavenimagenes/961b5d60-56db-4307-96f1-5e634f35a4ea/images/v2/PROMARK/1803191841469741_01_large.jpg?sp=r&st=2025-06-19T02:11:26Z&se=2035-06-19T10:11:26Z&spr=https&sv=2024-11-04&sr=c&sig=JTrpEXutEZPdfvCaeQXMhkVlHyRxzKHHZRKwJAxxoq8%3D",
+      "category": "Instruments",
+      "stock": 20
+    },
+    {
+      "id": "19",
+      "name": "Iron Maiden Vinyl Collection",
+      "description": "Limited edition set of classic Iron Maiden albums on 180g vinyl.",
+      "price": 299.99,
+      "image": "https://cdn11.bigcommerce.com/s-p66uh2e57r/images/stencil/710x910/products/33022/44158/IMTNOTBPBOHE__46929.1664457311.jpg?c=1",
+      "category": "Vinyl",
+      "stock": 4
+    },
+    {
+      "id": "20",
+      "name": "Metallica Logo T-Shirt",
+      "description": "100% cotton shirt featuring the classic Metallica logo in red.",
+      "price": 34.99,
+      "image": "https://acdn-us.mitiendanube.com/stores/944/335/products/metallica1-01536825fab1878ce215837900929794-1024-1024.webp",
+      "category": "Clothing",
+      "stock": 15
+    },
+    {
+      "id": "21",
+      "name": "Heavy Metal Pedal - Distortion X100",
+      "description": "Extreme gain and sustain for metal guitarists, rugged metal housing.",
+      "price": 129.99,
+      "image": "https://ae01.alicdn.com/kf/S862d59c3d4234d00ba97208e15ebcecd3.jpg",
+      "category": "Instruments",
+      "stock": 10
+    },
+    {
+      "id": "22",
+      "name": "Black Leather Guitar Strap",
+      "description": "Premium leather strap with metal studs and adjustable length.",
+      "price": 49.99,
+      "image": "https://m.media-amazon.com/images/I/81Q1PZGPfdL._AC_SL1500_.jpg",
+      "category": "Accesories",
+      "stock": 8
+    },
+    {
+      "id": "23",
+      "name": "Metal Relics Sticker Pack",
+      "description": "Set of 10 high-quality stickers featuring legendary metal bands.",
+      "price": 9.99,
+      "image": "https://m.media-amazon.com/images/I/81GMESLSGLL._AC_SL1500_.jpg",
+      "category": "Accesories",
+      "stock": 50
+    },
+    {
+      "id": "24",
+      "name": "Bass Guitar - Thunder Series",
+      "description": "Four-string bass with deep punchy tone and sleek matte black finish.",
+      "price": 749.0,
+      "image": "https://mcgrathguitars.com/cdn/shop/files/Matte-Black-Thunderhorse-IV-McGrath-Guitars-34705496375462.jpg?v=1753341797&width=493",
+      "category": "Instruments",
+      "stock": 5
+    },
+    {
+      "id": "25",
+      "name": "Metal Band Patch Set",
+      "description": "Sew-on patches for your jacket: Slayer, Judas Priest, Black Sabbath & more.",
+      "price": 14.99,
+      "image": "https://i.ebayimg.com/images/g/yrIAAOSwkp5lX~7J/s-l500.jpg",
+      "category": "Accesories",
+      "stock": 30
+    },
+    {
+      "id": "26",
+      "name": "ESP LTD EC-1000 Deluxe",
+      "description": "Signature electric guitar for metal players, active EMG pickups and sleek design.",
+      "price": 1149.99,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_2X_623839-MLA90226268926_082025-F.webp",
+      "category": "Instruments",
+      "stock": 3
+    },
+    {
+      "id": "27",
+      "name": "Death Metal Essentials Vinyl Box",
+      "description": "Limited edition vinyl set featuring classics from Death, Morbid Angel and Obituary.",
+      "price": 249.99,
+      "image": "https://m.media-amazon.com/images/I/91Snx5exM9L._SL1500_.jpg",
+      "category": "Vinyl",
+      "stock": 4
+    },
+    {
+      "id": "28",
+      "name": "Judas Priest - Painkiller CD",
+      "description": "Remastered edition of the legendary 1990 Judas Priest album.",
+      "price": 17.99,
+      "image": "https://m.media-amazon.com/images/I/611B0ExWgfL._SL1000_.jpg",
+      "category": "CDs",
+      "stock": 10
+    },
+    {
+      "id": "29",
+      "name": "Zildjian Cymbal Pack Metal A Custom",
+      "description": "Bright, cutting cymbals designed for high-volume metal drumming.",
+      "price": 799.99,
+      "image": "https://m.media-amazon.com/images/I/813uj4xyUDL._AC_SL1500_.jpg",
+      "category": "Instruments",
+      "stock": 5
+    },
+    {
+      "id": "30",
+      "name": "Boss Metal Zone MT-2",
+      "description": "Legendary distortion pedal with massive gain and mid-shaping controls.",
+      "price": 119.99,
+      "image": "https://m.media-amazon.com/images/I/71aHeAESn8L._AC_SL1500_.jpg",
+      "category": "Instruments",
+      "stock": 20
+    },
+    {
+      "id": "31",
+      "name": "Leather Wristband with Studs",
+      "description": "Black leather wristband with stainless steel studs, perfect for metal fans.",
+      "price": 12.99,
+      "image": "https://m.media-amazon.com/images/I/61XOOggOQ2L._AC_SY395_.jpg",
+      "category": "Accesories",
+      "stock": 40
+    },
+    {
+      "id": "32",
+      "name": "Black Sabbath - Tyr Vinyl (Remaster)",
+      "description": "Classic 1990 album on 180g remastered vinyl.",
+      "price": 29.99,
+      "image": "https://www.therecordhub.com/cdn/shop/files/Tyr_2024Remaster_ClearVinyl_600x.png?v=1731294700",
+      "category": "Vinyl",
+      "stock": 12
+    },
+    {
+      "id": "33",
+      "name": "Ibanez SR300E Bass",
+      "description": "Smooth and fast-playing bass with active EQ and metallic finish.",
+      "price": 649.99,
+      "image": "https://c1.ar/wp-content/uploads/2025/04/Bajo-Electrico-Ibanez-SR300e-Activo-4-Cuerdas-MLA1355391473.webp",
+      "category": "Instruments",
+      "stock": 6
+    },
+    {
+      "id": "34",
+      "name": "Double Bass Drum Pedal",
+      "description": "High-speed pedal with adjustable spring tension for extreme metal drumming.",
+      "price": 259.99,
+      "image": "https://img-1.kwcdn.com/product/fancy/35f68b8e-60e7-4f83-85f1-0eb7d40b17ec.jpg?imageView2/2/w/800/q/70/format/webp",
+      "category": "Instruments",
+      "stock": 8
+    },
+    {
+      "id": "35",
+      "name": "Metallica - Master of Puppets Vinyl",
+      "description": "Remastered 180g vinyl edition of Metallica's most iconic album.",
+      "price": 34.99,
+      "image": "https://cdn.media.amplience.net/i/metallica/WRACXHE4_Master-of-Puppets-Remastered-Vinyl_01?$large$",
+      "category": "Vinyl",
+      "stock": 15
+    },
+    {
+      "id": "36",
+      "name": "Gibson Les Paul Studio Ebony",
+      "description": "All-mahogany Les Paul with a heavy tone, ideal for hard rock and metal.",
+      "price": 1399.99,
+      "image": "https://tse4.mm.bing.net/th/id/OIP.HaL2h9sS5C4j7cD0Zy2SjwHaHa?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "category": "Instruments",
+      "stock": 2
+    },
+    {
+      "id": "37",
+      "name": "Metallica Logo Beanie",
+      "description": "Black knit beanie with embroidered Metallica logo in white.",
+      "price": 19.99,
+      "image": "https://officialmerchandisestore.com/cdn/shop/products/METBEAN001.jpg?v=1689304245",
+      "category": "Accesories",
+      "stock": 25
+    },
+    {
+      "id": "38",
+      "name": "Line 6 Spider V 60 MkII",
+      "description": "Modeling amp with over 200 tones, ideal for practicing metal at home.",
+      "price": 349.99,
+      "image": "https://media.guitarcenter.com/is/image/MMGS7/L57357000001000-00-600x600.jpg",
+      "category": "Instruments",
+      "stock": 4
+    },
+    {
+      "id": "39",
+      "name": "Metallica Live in Moscow 1991 DVD",
+      "description": "Historic live concert during the collapse of the Soviet Union, 3-hour performance.",
+      "price": 24.99,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkHC96KGvMT_GoMHXQYdXGLjkFIb90qC0ThQ&s",
+      "category": "CDs",
+      "stock": 10
+    },
+    {
+      "id": "40",
+      "name": "Slipknot Hoodie - Iowa Edition",
+      "description": "Thick cotton hoodie featuring Slipknot's goat logo, black and red print.",
+      "price": 59.99,
+      "image": "https://m.media-amazon.com/images/I/B1mEhjGJ2nL._CLa%7C2140%2C2000%7CB1HErNzG1SL.png%7C0%2C0%2C2140%2C2000%2B0%2C0%2C2140%2C2000_AC_SX342_.png",
+      "category": "Accesories",
+      "stock": 12
+    },
+    {
+      "id": "41",
+      "name": "Jackson Randy Rhoads RR24",
+      "description": "Sharp V-shaped guitar with Floyd Rose and EMG 81/85 pickups.",
+      "price": 1799.99,
+      "image": "https://www.fmicassets.com/Damroot/eCommPNG/10017/2916679503_jac_ins_frt_1_rr.png",
+      "category": "Instruments",
+      "stock": 2
+    },
+    {
+      "id": "42",
+      "name": "Metallica Black Album CD",
+      "description": "Iconic self-titled 1991 release featuring 'Enter Sandman'.",
+      "price": 14.99,
+      "image": "https://m.media-amazon.com/images/I/51qZ6nLvg8L._SL1400_.jpg",
+      "category": "CDs",
+      "stock": 18
+    },
+    {
+      "id": "43",
+      "name": "Guitar Picks Set - Heavy Metal Edition",
+      "description": "Pack of 12 extra heavy picks with skull and lightning artwork.",
+      "price": 7.99,
+      "image": "https://m.media-amazon.com/images/I/8103TSpkamL._AC_SL1500_.jpg",
+      "category": "Accesories",
+      "stock": 60
+    },
+    {
+      "id": "44",
+      "name": "Fender Rumble 100 Bass Amp",
+      "description": "Compact yet powerful 100W bass amplifier with vintage voicing.",
+      "price": 399.99,
+      "image": "https://heavenstorage.blob.core.windows.net/storageheavenimagenes/5765a4f8-445b-48f8-889e-9378aee05156/images/v2/FENDER/20863_xlarge.jpg?sp=r&st=2025-06-19T02:11:26Z&se=2035-06-19T10:11:26Z&spr=https&sv=2024-11-04&sr=c&sig=JTrpEXutEZPdfvCaeQXMhkVlHyRxzKHHZRKwJAxxoq8%3D",
+      "category": "Instruments",
+      "stock": 5
+    },
+    {
+      "id": "45",
+      "name": "Motörhead Vinyl - Ace of Spades",
+      "description": "Remastered edition of Motörhead's legendary 1980 album.",
+      "price": 32.99,
+      "image": "https://m.media-amazon.com/images/I/91KZZk94EsL._SL1500_.jpg",
+      "category": "Vinyl",
+      "stock": 9
+    }
+  ],
+  "cart": []
+}
