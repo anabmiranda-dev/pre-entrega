@@ -132,7 +132,7 @@ footer {
   background-color: #d8d8d8;
   color: #343a40;
   text-align: center;
-  padding: 20px 0;
+  padding: 20px 0 0;
   width: 100%;
 }
 
@@ -251,7 +251,8 @@ footer {
 
 /*   Contact    */
 
-.contact-form {
+.contact-form,
+.product-input {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -261,7 +262,8 @@ footer {
 }
 
 .contact-form input,
-.contact-form textarea {
+.contact-form textarea,
+.custom-select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -290,37 +292,6 @@ label {
 }
 
 /*   Product    */
-
-.product-input {
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.product-input select {
-  width: 200px;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  gap: 10px;
-  margin-left: 10px;
-  font-size: 1rem;
-  appearance: none;
-
-  /* Imagen de la flecha desplegable */
-
-  background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23343a40' class='bi bi-caret-down-fill' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592c.86 0 1.319 1.013.753 1.658l-4.796 5.482a1 1 0 0 1-1.506 0z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 16px 12px;
-  cursor: pointer;
-}
-
-.product-input label {
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 1rem;
-}
 
 .product-list,
 .product-grid {

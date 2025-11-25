@@ -28,12 +28,13 @@ function Product({ products, addToCart, alertMessage, category, setCategory, sor
   }
 
   return (
-    <div className={`product-container fade-in ${visible ? "visible" : ""}`} style={{ textAlign: "center", marginTop: "50px" }}>
-      <img
+    <div className={`container fade-in ${visible ? "visible" : ""}`} style={{ textAlign: "center", marginTop: "50px" }}>
+      {/*<img
         src="/src/assets/product-list.png"
         alt="Product list"
         className="cart-header-img"
-      />
+      />*/}
+      <h2 style={{ color:"#F87C63" }}>Products</h2>
       {alertMessage && (
         <div style={{ position: "fixed", bottom: "80px", right: "20px", background: "#d9534f", color: "#fff", padding: "10px 20px", borderRadius: "5px", zIndex: 1000 }}>
           {alertMessage}
@@ -54,7 +55,7 @@ function Product({ products, addToCart, alertMessage, category, setCategory, sor
           </select>
         </label>
 
-        <label style={{ margin: "15px" }}>
+        <label >
           Sort by price:
           <select className="custom-select" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
             <option value="asc">Low to high</option>

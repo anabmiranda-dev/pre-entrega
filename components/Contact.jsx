@@ -41,12 +41,13 @@ function Contact() {
     };
 
     return (
-        <div className={`contact-us contact-container fade-in ${visible ? "visible" : ""}`}>
-            <img
+        <div className={`contact-us container fade-in ${visible ? "visible" : ""}`}>
+            {/*<img
                 src="/src/assets/contact-us.png"
                 alt="Contact us"
                 className="contact-us-header"
-            />
+            />*/}
+            <h2 style={{ color:"#F87C63" }}>Contact us</h2>
             <p>Do you have any questions or inquiries? Write to us!</p>
 
             {sent ? (

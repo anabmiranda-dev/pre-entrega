@@ -1,17 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { CarritoContext } from "../context/CarritoContext";
 import { Zap } from "lucide-react";
 import Boton from "./Boton";
 import '../src/App.css';
 
 function Cart() {
+
+  const { cart, loadCart, clearCart } = useContext(CarritoContext);
+
+  {/*
   const [cart, setCart] = useState([]);
+  */
+  }
+
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:4000/cart")
       .then(res => res.json())
-      .then(data => setCart(data))
+      .then(data => loadCart(data))
       .catch(err => console.error("There was an error loading your cart:", err));
   }, []);
 
@@ -24,6 +32,7 @@ function Cart() {
   }, [cart]);
 
 
+  {/*
   const clearCart = () => {
     fetch("http://localhost:4000/cart", { method: "DELETE" })
       .then(res => res.json())
@@ -31,7 +40,11 @@ function Cart() {
       .catch(err => console.error("There was an error clearing your cart:", err));
   };
 
+      */
+  }
+
   const total = cart.reduce((acc, p) => acc + p.price * (p.quantity || 1), 0);
+
 
   if (loading) {
     return (

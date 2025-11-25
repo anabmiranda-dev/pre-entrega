@@ -16,9 +16,10 @@ function About() {
     return (
 
         <div className={`about-us contact-us contact-container fade-in ${visible ? "visible" : ""}`}>
-            <img src="/src/assets/about-us.png" alt="About Us Title"
+            {/*<img src="/src/assets/about-us.png" alt="About Us Title"
                 onLoad={() => setLoaded(true)}
-                style={{ height: "auto" }} />
+                style={{ height: "auto" }} />*/}
+            <h2 style={{ color:"#F87C63" }}>About us</h2>
 
             <img src="/src/assets/about.jpg" alt="About Metal Relics"
                 onLoad={() => setLoaded(true)}
