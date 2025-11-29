@@ -1,5 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import { CarritoContext } from "../context/CarritoContext";
+import { AuthProvider } from '../context/AuthContext';
+
+import Login from '/components/Login';
+import Dashboard from '/components/Dashboard';
+import ProtectedRoute from '/components/ProtectedRoute';
 import Product from '/components/Product';
 import Cart from '/components/Cart';
 import ProductDetail from '/components/ProductDetail';
@@ -8,41 +15,47 @@ import Home from '/components/Home';
 import Nav from '/components/Nav';
 import Contact from '/components/Contact';
 import Footer from '/components/Footer';
-import AlertMessage from '../components/AlertMessage';
+import AlertMessage from '/components/AlertMessage';
 
-import "./App.css"
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import "./App.css";
+
+
+const API_BASE = "https://692780c0b35b4ffc50122769.mockapi.io/api/v1";
 
 function App() {
 
   const [products, setProducts] = useState([]);
-  const [category, setCategory] = useState("all");
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [allProducts, setAllProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [cart, setCart] = useState([]);
   const [alertMessage, setAlertMessage] = useState("");
+  const { cartMessage } = useContext(CarritoContext);
 
-  const [allProducts, setAllProducts] = useState([]);
+  const [category, setCategory] = useState("all");
+  const [sortOrder, setSortOrder] = useState("asc");
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("http://localhost:4000/products");
-        if (!res.ok) throw new Error("Error cargando productos");
+        const res = await fetch(`${API_BASE}/products`);
         const data = await res.json();
+
         setTimeout(() => {
           setAllProducts(data);
           setProducts(data);
           setLoading(false);
-        }, 1000);
+        }, 800);
+
       } catch (err) {
-        console.error(err);
+        console.error("Error cargando productos", err);
         setLoading(false);
       }
     };
+
     fetchProducts();
   }, []);
-
 
   useEffect(() => {
     let filtered = [...allProducts];
@@ -51,10 +64,9 @@ function App() {
       filtered = filtered.filter(p => p.category === category);
     }
 
-    filtered.sort((a, b) => {
-      if (sortOrder === "asc") return a.price - b.price;
-      else return b.price - a.price;
-    });
+    filtered.sort((a, b) =>
+      sortOrder === "asc" ? a.price - b.price : b.price - a.price
+    );
 
     setProducts(filtered);
   }, [category, sortOrder, allProducts]);
@@ -73,11 +85,11 @@ function App() {
 
     setCart(updatedCart);
 
-    fetch("http://localhost:4000/cart", {
+    fetch(`${API_BASE}/cart`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(product),
-    }).catch(err => console.error(err));
+      body: JSON.stringify({ ...product, quantity: 1 }),
+    }).catch(console.error);
 
     setAlertMessage(`${product.name} added to cart!`);
     setTimeout(() => setAlertMessage(""), 2500);
@@ -85,42 +97,70 @@ function App() {
 
   const clearCart = () => {
     setCart([]);
-    fetch("http://localhost:4000/cart", { method: "DELETE" })
-      .catch(err => console.error(err));
+
+    fetch(`${API_BASE}/cart`, { method: "DELETE" })
+      .catch(console.error);
   };
 
   return (
-    <Router>
-      <Nav />
-      <AlertMessage message={alertMessage} />
-      <div id="root">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/products" element={
-            <Product
-              products={products}
-              addToCart={addToCart}
-              alertMessage={alertMessage}
-              category={category}
-              setCategory={setCategory}
-              sortOrder={sortOrder}
-              setSortOrder={setSortOrder}
+    <AuthProvider>
+      <Router>
+        {cartMessage && (
+          <div className="cart-toast fade-in visible">
+            {cartMessage}
+          </div>
+        )}
+        <Nav />
+        <AlertMessage message={alertMessage} />
+
+        <div id="root">
+
+          <Routes>
+
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
             />
-          } />
-          <Route path="/product/:id" element={
-            <ProductDetail
-              products={products}
-              addToCart={addToCart}
-              alertMessage={alertMessage}
+
+            <Route path="/" element={<Home />} />
+
+            <Route path="/about" element={<About />} />
+
+            <Route path="/contact" element={<Contact />} />
+
+            <Route
+              path="/products"
+              element={
+                <Product
+                  products={products}
+                  loading={loading}
+                  alertMessage={alertMessage}
+                  category={category}
+                  setCategory={setCategory}
+                  sortOrder={sortOrder}
+                  setSortOrder={setSortOrder}
+                />
+              }
             />
-          } />
-          <Route path="/cart" element={<Cart cart={cart} clearCart={clearCart} />} />
-        </Routes>
-      </div>
-      <Footer />
-    </Router>
+
+            <Route
+              path="/product/:id"
+              element={<ProductDetail products={products} addToCart={addToCart} />}
+            />
+
+            <Route path="/cart" element={<Cart cart={cart} clearCart={clearCart} />} />
+          </Routes>
+
+        </div>
+
+        <Footer />
+      </Router>
+    </AuthProvider>
   );
 }
 

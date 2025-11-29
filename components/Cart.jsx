@@ -2,53 +2,31 @@ import React, { useEffect, useState, useContext } from "react";
 import { CarritoContext } from "../context/CarritoContext";
 import { Zap } from "lucide-react";
 import Boton from "./Boton";
-import '../src/App.css';
+import "../src/App.css";
 
 function Cart() {
-
-  const { cart, loadCart, clearCart } = useContext(CarritoContext);
-
-  {/*
-  const [cart, setCart] = useState([]);
-  */
-  }
+  const { cart, clearCart } = useContext(CarritoContext);
 
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    fetch("http://localhost:4000/cart")
-      .then(res => res.json())
-      .then(data => loadCart(data))
-      .catch(err => console.error("There was an error loading your cart:", err));
-  }, []);
-
+  // Simula carga inicial (igual que Products)
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
       setVisible(true);
-    }, 800);
+    }, 600);
     return () => clearTimeout(timer);
-  }, [cart]);
+  }, []); // solo una vez
 
-
-  {/*
-  const clearCart = () => {
-    fetch("http://localhost:4000/cart", { method: "DELETE" })
-      .then(res => res.json())
-      .then(() => setCart([]))
-      .catch(err => console.error("There was an error clearing your cart:", err));
-  };
-
-      */
-  }
-
-  const total = cart.reduce((acc, p) => acc + p.price * (p.quantity || 1), 0);
-
+  const total = cart.reduce(
+    (acc, p) => acc + p.price * (p.quantity || 1),
+    0
+  );
 
   if (loading) {
     return (
-      <div className="cart-loading">
+      <div className="cart-loading fade-in visible">
         <div className="spinner"></div>
         <p>Loading cart...</p>
       </div>
@@ -64,7 +42,7 @@ function Cart() {
       />
 
       {cart.length === 0 ? (
-        <div className="empty-cart">
+        <div className="empty-cart fade-in visible">
           <h2>Nothing in your cart yet</h2>
           <p>Browse our products and add something epic!</p>
           <a href="/products" className="home-button">
@@ -75,11 +53,11 @@ function Cart() {
         <>
           <div className="cart-items cart-container">
             {cart.map((p) => (
-              <div key={p.id} className="cart-item">
+              <div key={p.id} className="cart-item fade-in visible">
                 <img src={p.image} alt={p.name} className="cart-item-img" />
                 <div className="cart-item-details">
                   <h4>{p.name}</h4>
-                  <p>{p.quantity} x ${p.price.toFixed(2)}</p>
+                  <p>{p.quantity} × ${p.price.toFixed(2)}</p>
                   <p className="subtotal">
                     Subtotal: ${(p.quantity * p.price).toFixed(2)}
                   </p>
@@ -88,7 +66,7 @@ function Cart() {
             ))}
           </div>
 
-          <div className="cart-summary">
+          <div className="cart-summary fade-in visible">
             <h3>Total: ${total.toFixed(2)}</h3>
             <div className="button-grid">
               <Boton texto="Clear Cart" onClick={clearCart} className="button-danger" />

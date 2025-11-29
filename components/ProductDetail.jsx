@@ -1,28 +1,30 @@
-import React, { useEffect, useState } from "react";
-import Boton from "./Boton";
-import '../src/App.css';
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { CarritoContext } from "../context/CarritoContext";
+import '../src/App.css';
+import Boton from "./Boton";
 
-function ProductDetail({ products, addToCart }) {
+const API_BASE = "https://692780c0b35b4ffc50122769.mockapi.io/api/v1";
+
+function ProductDetail() {
   const { id } = useParams();
-  const [loading, setLoading] = useState(true);
+  const { addToCart } = useContext(CarritoContext);
+
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    const timer = setTimeout(() => {
-      const found = products.find(p => p.id === String(id));
-      setProduct(found);
-      setLoading(false);
 
-      requestAnimationFrame(() => {
-        setVisible(true);
+    fetch(`${API_BASE}/products/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProduct(data);
+        setLoading(false);
+        requestAnimationFrame(() => setVisible(true));
       });
-
-    }, 1200);
-    return () => clearTimeout(timer);
-  }, [id, products]);
+  }, [id]);
 
   if (loading) {
     return (
@@ -41,8 +43,8 @@ function ProductDetail({ products, addToCart }) {
       <img className="img-detail" src={product.image} alt={product.name} />
       <h2>{product.name}</h2>
       <h6 className="product-description">{product.description}</h6>
-      <h3><strong>Price: ${product.price}</strong></h3>
-      <h5>Stock: {product.stock}</h5>
+      <h3><strong>${product.price}</strong></h3>
+
       <Boton texto="Add to cart" onClick={() => addToCart(product)} />
     </div>
   );

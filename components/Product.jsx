@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import '../src/App.css';
 import Boton from "./Boton";
 import { Link } from "react-router-dom";
 import { ShoppingCart, Search } from "lucide-react";
+import { CarritoContext } from "../context/CarritoContext";
+import productList from "../src/assets/product-list.png";
 
-function Product({ products, addToCart, alertMessage, category, setCategory, sortOrder, setSortOrder }) {
 
-  const [loading, setLoading] = useState(true);
+
+function Product({ products, loading, alertMessage, category, setCategory, sortOrder, setSortOrder }) {
+  const { addToCart } = useContext(CarritoContext);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-      setVisible(true);
-    }, 1000);
-
+    const timer = setTimeout(() => setVisible(true), 200);
     return () => clearTimeout(timer);
-  }, [products]);
+  }, []);
 
   if (loading) {
     return (
-      <div className="spinner-container">
+      <div className="spinner-container fade-in visible">
         <div className="spinner"></div>
         <p>Loading products...</p>
       </div>
@@ -29,19 +28,16 @@ function Product({ products, addToCart, alertMessage, category, setCategory, sor
 
   return (
     <div className={`container fade-in ${visible ? "visible" : ""}`} style={{ textAlign: "center", marginTop: "50px" }}>
-      {/*<img
-        src="/src/assets/product-list.png"
-        alt="Product list"
-        className="cart-header-img"
-      />*/}
-      <h2 style={{ color:"#F87C63" }}>Products</h2>
-      {alertMessage && (
-        <div style={{ position: "fixed", bottom: "80px", right: "20px", background: "#d9534f", color: "#fff", padding: "10px 20px", borderRadius: "5px", zIndex: 1000 }}>
-          {alertMessage}
-        </div>
-      )}
+
+      <h2 style={{ color: "#F87C63" }}>Products</h2>
+
+      <img
+        src={productList}
+        alt="Product List"
+      />
 
       <div className="product-input" style={{ marginBottom: "20px" }}>
+
         <label>
           Category:
           <select className="custom-select" value={category} onChange={(e) => setCategory(e.target.value)}>
@@ -55,32 +51,36 @@ function Product({ products, addToCart, alertMessage, category, setCategory, sor
           </select>
         </label>
 
-        <label >
+        <label>
           Sort by price:
           <select className="custom-select" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
             <option value="asc">Low to high</option>
             <option value="desc">High to Low</option>
           </select>
         </label>
+
       </div>
 
       <div className="product-grid">
         {products.map((item) => (
-          <div key={item.id} className="product-card">
+          <div key={item.id} className="product-card fade-in visible">
             <p className="product-category">{item.category}</p>
             <img src={item.image} alt={item.name} className="product-image" />
             <h3>{item.name}</h3>
             <p>{item.description}</p>
             <p><strong>${item.price}</strong></p>
+
             <div>
               <Link className="product-view-detail" to={`/product/${item.id}`}>
-                <Search size={24} style={{ margin: "0 0 10px 0", color: "#6c757d" }} />
+                <Search size={24} style={{ marginBottom: "10px", color: "#6c757d" }} />
               </Link>
             </div>
+
             <Boton texto="Add to cart" onClick={() => addToCart(item)} icon={ShoppingCart} />
           </div>
         ))}
       </div>
+
     </div>
   );
 }
