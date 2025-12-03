@@ -1,41 +1,42 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import { CarritoContext } from "../context/CarritoContext";
-import { AuthProvider } from '../context/AuthContext';
+import { AuthProvider } from "../context/AuthContext";
+import { CarritoProvider } from "../context/CarritoContext";
+import { ProductsFilterProvider } from "../context/ProductsFilterContext";
 
-import Login from '/components/Login';
-import Dashboard from '/components/Dashboard';
-import ProtectedRoute from '/components/ProtectedRoute';
-import Product from '/components/Product';
-import Cart from '/components/Cart';
-import ProductDetail from '/components/ProductDetail';
-import About from '/components/About';
-import Home from '/components/Home';
-import Nav from '/components/Nav';
-import Contact from '/components/Contact';
-import Footer from '/components/Footer';
-import AlertMessage from '/components/AlertMessage';
-
+import Login from "/components/Login";
+import Dashboard from "/components/Dashboard";
+import ProtectedRoute from "/components/ProtectedRoute";
+import AdminRoute from "/components/AdminRoute";
+import AdminProducts from "/components/AdminProducts";
+import Products from "/components/Products";
+import Cart from "/components/Cart";
+import ProductDetail from "/components/ProductDetail";
+import About from "/components/About";
+import Home from "/components/Home";
+import Nav from "/components/Nav";
+import Contact from "/components/Contact";
+import Footer from "/components/Footer";
+import AlertMessage from "/components/AlertMessage";
 
 import "./App.css";
-
 
 const API_BASE = "https://692780c0b35b4ffc50122769.mockapi.io/api/v1";
 
 function App() {
-
   const [products, setProducts] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [cart, setCart] = useState([]);
   const [alertMessage, setAlertMessage] = useState("");
-  const { cartMessage } = useContext(CarritoContext);
-
   const [category, setCategory] = useState("all");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [searchQuery, setSearchQuery] = useState("");
 
+
+  // --- LOAD PRODUCTS ---
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -47,7 +48,6 @@ function App() {
           setProducts(data);
           setLoading(false);
         }, 800);
-
       } catch (err) {
         console.error("Error cargando productos", err);
         setLoading(false);
@@ -57,11 +57,19 @@ function App() {
     fetchProducts();
   }, []);
 
+  // --- FILTER + SORT ---
   useEffect(() => {
     let filtered = [...allProducts];
 
     if (category !== "all") {
-      filtered = filtered.filter(p => p.category === category);
+      filtered = filtered.filter((p) => p.category === category);
+    }
+
+    // 🟦 Nuevo filtro por búsqueda de texto
+    if (searchQuery.trim() !== "") {
+      filtered = filtered.filter((p) =>
+        p.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     }
 
     filtered.sort((a, b) =>
@@ -69,14 +77,16 @@ function App() {
     );
 
     setProducts(filtered);
-  }, [category, sortOrder, allProducts]);
+  }, [category, sortOrder, searchQuery, allProducts]);
 
+
+  // --- CART ---
   const addToCart = (product) => {
     const exists = cart.find((p) => p.id === product.id);
     let updatedCart;
 
     if (exists) {
-      updatedCart = cart.map(p =>
+      updatedCart = cart.map((p) =>
         p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
       );
     } else {
@@ -98,68 +108,98 @@ function App() {
   const clearCart = () => {
     setCart([]);
 
-    fetch(`${API_BASE}/cart`, { method: "DELETE" })
-      .catch(console.error);
+    fetch(`${API_BASE}/cart`, { method: "DELETE" }).catch(console.error);
   };
 
   return (
     <AuthProvider>
-      <Router>
-        {cartMessage && (
-          <div className="cart-toast fade-in visible">
-            {cartMessage}
-          </div>
-        )}
-        <Nav />
-        <AlertMessage message={alertMessage} />
+      <CarritoProvider>
+        <ProductsFilterProvider>
+          <Router>
+            <Nav />
 
-        <div id="root">
+            <AlertMessage message={alertMessage} />
 
-          <Routes>
+            <Routes>
+              {/* ADMIN PRODUCTS */}
+              <Route
+                path="/admin/products"
+                element={
+                  <AdminRoute>
+                    <AdminProducts />
+                  </AdminRoute>
+                }
+              />
 
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
+              {/* PRODUCT DETAIL - view OR create */}
+              <Route path="/product/new" element={
+                <ProtectedRoute adminOnly={true}>
+                  <ProductDetail />
                 </ProtectedRoute>
-              }
-            />
+              } />
 
-            <Route path="/" element={<Home />} />
+              {/* PRODUCT DETAIL */}
+              <Route
+                path="/products/:id"
+                element={<ProductDetail products={products} addToCart={addToCart} />}
+              />
 
-            <Route path="/about" element={<About />} />
+              {/* USER PRODUCTS */}
+              <Route
+                path="/products/"
+                element={
+                  <Products
+                    products={products}
+                    loading={loading}
+                    category={category}
+                    setCategory={setCategory}
+                    sortOrder={sortOrder}
+                    setSortOrder={setSortOrder}
+                    searchQuery={searchQuery}     
+                    setSearchQuery={setSearchQuery} 
+                    addToCart={addToCart}
+                  />
+                }
+              />
 
-            <Route path="/contact" element={<Contact />} />
+              {/* LOGIN */}
+              <Route path="/login" element={<Login />} />
 
-            <Route
-              path="/products"
-              element={
-                <Product
-                  products={products}
-                  loading={loading}
-                  alertMessage={alertMessage}
-                  category={category}
-                  setCategory={setCategory}
-                  sortOrder={sortOrder}
-                  setSortOrder={setSortOrder}
-                />
-              }
-            />
+              {/* DASHBOARD */}
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route
-              path="/product/:id"
-              element={<ProductDetail products={products} addToCart={addToCart} />}
-            />
+              {/* HOME */}
+              <Route path="/" element={<Home />} />
 
-            <Route path="/cart" element={<Cart cart={cart} clearCart={clearCart} />} />
-          </Routes>
+              {/* OTHERS */}
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
 
-        </div>
+              {/* CART (solo logueado) */}
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <Cart cart={cart} clearCart={clearCart} />
+                  </ProtectedRoute>
+                }
+              />
 
-        <Footer />
-      </Router>
+              {/* DEFAULT */}
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+
+            <Footer />
+          </Router>
+        </ProductsFilterProvider>
+      </CarritoProvider>
     </AuthProvider>
   );
 }

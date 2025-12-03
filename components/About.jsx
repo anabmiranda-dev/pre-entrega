@@ -19,9 +19,9 @@ function About() {
                 <h2 style={{ color: "#F87C63" }}>About us</h2>
 
                 <img
-                    src="/src/assets/shopping-cart.png"
-                    alt="Shopping Cart"
-                    className="cart-header-img"
+                    src="/src/assets/about.jpg"
+                    alt="about-us"
+                    className="about-us-img"
                 />
 
                 <div className={`about-text`} style={{ marginTop: "30px", textAlign: "center", lineHeight: "1.6", fontSize: "16px" }}>

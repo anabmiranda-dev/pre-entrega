@@ -34,12 +34,9 @@ function Cart() {
   }
 
   return (
-    <div className={`shopping-cart fade-in ${visible ? "visible" : ""}`}>
-      <img
-        src="/src/assets/shopping-cart.png"
-        alt="Shopping Cart"
-        className="cart-header-img"
-      />
+    <div className={`shopping-cart container fade-in ${visible ? "visible" : ""}`}>
+      
+      <h2 style={{ color: "#F87C63" }}>Shopping cart</h2>
 
       {cart.length === 0 ? (
         <div className="empty-cart fade-in visible">

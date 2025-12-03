@@ -1,38 +1,50 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+// context/AuthContext.jsx
+import React, { createContext, useState, useContext, useEffect } from "react";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);   // username
+  const [role, setRole] = useState(null);   // admin | user
 
-    const [user, setUser] = useState(null);
+  // ▶ Cargar estado desde localStorage al iniciar
+  useEffect(() => {
+    const savedUser = localStorage.getItem("authUser");
+    const savedRole = localStorage.getItem("authRole");
 
-    // Restaurar sesión si existe token en localStorage
-    useEffect(() => {
-        const token = localStorage.getItem("authToken");
+    if (savedUser && savedRole) {
+      setUser(savedUser);
+      setRole(savedRole);
+    }
+  }, []);
 
-        if (token) {
-            // Extraer usuario del token fake o usar datos reales
-            const username = token.replace("fake-token-", "");
-            setUser(username);
-        }
-    }, []);
+  // ▶ Login
+  const login = (username) => {
+    const assignedRole = username === "admin" ? "admin" : "user";
+    const token = `fake-token-${username}`;
 
-    const login = (username) => {
-        const token = `fake-token-${username}`;
-        localStorage.setItem('authToken', token);
-        setUser(username);
-    };
+    localStorage.setItem("authToken", token);
+    localStorage.setItem("authUser", username);
+    localStorage.setItem("authRole", assignedRole);
 
-    const logout = () => {
-        localStorage.removeItem('authToken');
-        setUser(null);
-    };
+    setUser(username);
+    setRole(assignedRole);
+  };
 
-    return (
-        <AuthContext.Provider value={{ user, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  // ▶ Logout
+  const logout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("authUser");
+    localStorage.removeItem("authRole");
+    setUser(null);
+    setRole(null);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, role, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export const useAuthContext = () => useContext(AuthContext);

@@ -1,11 +1,27 @@
 
 import React from "react";
+import { Link } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 function Dashboard() {
+    const { role } = useAuthContext();
+
     return (
-        <div>
+        <div className="dashboard">
             <h1>Dashboard</h1>
-            <p>Welcome to your dashboard!</p>
+
+            {role === "admin" ? (
+                <>
+                    <p>Panel de administración</p>
+                    <Link to="/admin/products">
+                        <button className="btn-admin">
+                            Administrar productos
+                        </button>
+                    </Link>
+                </>
+            ) : (
+                <p>No tienes permisos de administrador.</p>
+            )}
         </div>
     );
 }
