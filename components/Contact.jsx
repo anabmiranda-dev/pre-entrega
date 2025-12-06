@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 
 import '../src/App.css';
 
@@ -42,11 +42,9 @@ function Contact() {
     };
 
     return (
-        <div className={`contact-us container fade-in ${visible ? "visible" : ""}`}>
-
-            <h2 style={{ color:"#F87C63" }}>Contact us</h2>
+        <div className={`contact-us fade-in ${visible ? "visible" : ""}`}>
+            <h2 style={{ color: "#F87C63" }}>Contact us</h2>
             <p>Do you have any questions or inquiries? Write to us!</p>
-
             {sent ? (
                 <p>Your message was sent successfully!!</p>
             ) : (

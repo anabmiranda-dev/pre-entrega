@@ -1,140 +1,104 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { CarritoContext } from "../context/CarritoContext";
-import { useAuthContext } from "../context/AuthContext";
-import '../src/App.css';
+import { ProductsContext } from "../context/ProductsContext";
 import Boton from "./Boton";
+import { Edit } from "lucide-react";
+import { useAuthContext } from "../context/AuthContext";
 
-const API_BASE = "https://692780c0b35b4ffc50122769.mockapi.io/api/v1";
-
-function ProductDetail() {
+export default function ProductDetail() {
+  const { user, role, logout } = useAuthContext();
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToCart } = useContext(CarritoContext);
-  const { role } = useAuthContext();
+  const { products, updateProduct, fetchProducts } = useContext(ProductsContext);
 
-  const isNew = id === "new";
+  const product = products.find((p) => p.id === id);
 
-  const [product, setProduct] = useState({
+  const [form, setForm] = useState({
     name: "",
+    price: "",
     category: "",
     description: "",
-    price: "",
     image: ""
   });
 
-  const [loading, setLoading] = useState(!isNew);
-  const [visible, setVisible] = useState(false);
-
+  // Cargar valores cuando cambia el producto
   useEffect(() => {
-    if (isNew) return;
-
-    setLoading(true);
-    fetch(`${API_BASE}/products/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setProduct(data);
-        setLoading(false);
-        requestAnimationFrame(() => setVisible(true));
+    if (product) {
+      setForm({
+        name: product.name || "",
+        price: product.price || "",
+        category: product.category || "",
+        description: product.description || "",
+        image: product.image || ""
       });
-
-  }, [id, isNew]);
-
-  const handleCreateProduct = async (e) => {
-    e.preventDefault();
-
-    const response = await fetch(`${API_BASE}/products`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(product)
-    });
-
-    if (response.ok) {
-      alert("Producto creado exitosamente");
-      navigate("/admin/products");  
-    } else {
-      alert("Error al crear producto");
     }
+  }, [product]);
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
   };
 
-  if (!isNew && loading) {
-    return (
-      <div className="productDetail-loading">
-        <div className="spinner"></div>
-        <p>Loading product...</p>
-      </div>
-    );
+  const handleSave = async () => {
+    await updateProduct(Number(id), form);
+    await fetchProducts(); // 👉 refresca toda la lista inmediatamente
+    navigate("/products");
+  };
+
+
+  if (!product) {
+    return <p style={{ textAlign: "center", marginTop: "50px" }}>Loading...</p>;
   }
-
-
-  if (role === "admin" && isNew) {
-    return (
-      <div className="productDetail form-mode">
-
-        <h2 style={{ color:"#F87C63" }}>Create new product</h2>
-
-        <form onSubmit={handleCreateProduct} className="create-form">
-
-          <input
-            type="text"
-            placeholder="Product name"
-            value={product.name}
-            onChange={(e) => setProduct({ ...product, name: e.target.value })}
-            required
-          />
-
-          <input
-            type="text"
-            placeholder="Category"
-            value={product.category}
-            onChange={(e) => setProduct({ ...product, category: e.target.value })}
-            required
-          />
-
-          <textarea
-            placeholder="Description"
-            value={product.description}
-            onChange={(e) => setProduct({ ...product, description: e.target.value })}
-            required
-          />
-
-          <input
-            type="number"
-            placeholder="Price"
-            value={product.price}
-            onChange={(e) => setProduct({ ...product, price: e.target.value })}
-            required
-          />
-
-          <input
-            type="text"
-            placeholder="Image URL"
-            value={product.image}
-            onChange={(e) => setProduct({ ...product, image: e.target.value })}
-            required
-          />
-
-          <button type="submit" className="btn-primary">
-            Create Product
-          </button>
-        </form>
-      </div>
-    );
-  }
-
-  if (!product) return <h2>Product not found</h2>;
 
   return (
-    <div className={`productDetail fade-in ${visible ? "visible" : ""}`}>
-      <p className="productDetail-category">{product.category}</p>
-      <img className="img-detail" src={product.image} alt={product.name} />
-      <h2>{product.name}</h2>
-      <h6 className="product-description">{product.description}</h6>
-      <h3><strong>${product.price}</strong></h3>
+    <>
+      <div className="container fade-in visible" style={{ marginTop: "50px", textAlign: "center" }}>
+        {role === "user" && (
+          <div className={`productDetail `}>
+            <h2 style={{ color: "#F87C63" }}>Product detail</h2>
+            <p className="productDetail-category">{product.category}</p>
+            <img className="img-detail" src={product.image} alt={product.name} />
+            <h2>{product.name}</h2>
+            <h6 className="product-description">{product.description}</h6>
+            <h3><strong>Price: ${product.price}</strong></h3>
+            <h5>Stock: {product.stock}</h5>
+            <Boton text="Add to cart" onClick={() => addToCart(product)} />
+          </div>
+        )
+        }
 
-      <Boton texto="Add to cart" onClick={() => addToCart(product)} />
-    </div>
+        {
+          role === "admin" && (
+            <>
+              <h2 style={{ color: "#F87C63" }}>Edit Product</h2>
+
+              <div className="product-edit-form">
+
+                <label>Name</label>
+                <input type="text" name="name" value={form.name} onChange={handleChange} className="custom-input" />
+
+                <label>Price</label>
+                <input type="number" name="price" value={form.price} onChange={handleChange} className="custom-input" />
+
+                <label>Category</label>
+                <input type="text" name="category" value={form.category} onChange={handleChange} className="custom-input" />
+
+                <label>Description</label>
+                <textarea name="description" value={form.description} onChange={handleChange} className="custom-input" />
+
+                <label>Image URL</label>
+                <img src={form.image} alt={form.name} className="product-image" />
+                <input type="text" name="image" value={form.image} onChange={handleChange} className="custom-input" />
+                
+                <Boton to="/products" text="Save changes" className="edit-button" onClick={handleSave} />
+
+                <Boton text="Cancel" to={"/products"} className="home-button"/>
+              </div></>
+          )
+        }
+      </div >
+    </>
   );
 }
-
-export default ProductDetail;

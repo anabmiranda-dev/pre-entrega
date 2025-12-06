@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 
-import { UserRound, Settings } from "lucide-react";
-import '../src/App.css';
+import { UserRound, ShoppingCart } from "lucide-react";
+import "../src/App.css";
 import iconMetalRelics from "../src/assets/icon-metal-relics.png";
 
 function Nav() {
     const { user, role, logout } = useAuthContext();
-    const [isAdminSettingsOpen, setIsAdminSettingsOpen] = useState(false);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -16,164 +15,64 @@ function Nav() {
         navigate("/login");
     };
 
+    const linkClass = ({ isActive }) =>
+        isActive ? "nav-link active-link" : "nav-link";
+
     return (
-        <>
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="#">Navbar</a>
+        <nav className="nav navbar navbar-light">
+            {/* Logo */}
+            <NavLink to="/" className="navbar-brand">
+                <img src={iconMetalRelics} width="40" alt="metal-relics-icon" />
+            </NavLink>
 
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav"
-                        aria-controls="navbarNav"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
+            {/* Links */}
+            <ul className="nav-list">
+                <li>
+                    <NavLink to="/" className={linkClass}>Home</NavLink>
+                </li>
 
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav">
+                <li>
+                    <NavLink to="/products" className={linkClass}>Products</NavLink>
+                </li>
 
-                            <li className="nav-item">
-                                <a
-                                    className="nav-link active"
-                                    aria-current="page"
-                                    href="#"
-                                >
-                                    Home
-                                </a>
-                            </li>
+                {role === "admin" && (
+                    <li>
+                        <NavLink to="/admin/users" className={linkClass}>Users</NavLink>
+                    </li>
+                )}
 
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">
-                                    Features
-                                </a>
-                            </li>
+                <li>
+                    <NavLink to="/contact" className={linkClass}>Contact</NavLink>
+                </li>
 
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">
-                                    Pricing
-                                </a>
-                            </li>
+                <li>
+                    <NavLink to="/about" className={linkClass}>About</NavLink>
+                </li>
 
-                            <li className="nav-item">
-                                <a className="nav-link disabled" aria-disabled="true">
-                                    Disabled
-                                </a>
-                            </li>
+                <li>
+                    <NavLink to="/cart" className={linkClass}><ShoppingCart size={24} /></NavLink>
+                </li>
+            </ul>
 
-                        </ul>
-                    </div>
+            {/* Estado de login */}
+            <div className="nav-user-box">
+                {user ? (
+                    <>
+                        <span className="nav-user">
+                            <UserRound /> {user} ({role})
+                        </span>
 
-                </div>
-            </nav>
-            <nav className="nav navbar navbar-light">
-                <a className="navbar-brand" href="#">
-                    <img src={iconMetalRelics} width="40" alt="metal-relics-icon" />
-                </a>
-
-                <ul className="nav-list">
-
-                    <li><Link to="/">Home</Link></li>
-
-                    {role !== "admin" && (
-                        <>
-                            <li><Link to="/products">Products</Link></li>
-                            <li><Link to="/contact">Contact</Link></li>
-                            <li><Link to="/about">About</Link></li>
-                            <li><Link to="/cart">Cart</Link></li>
-                        </>
-
-                    )}
-
-                    {role === "admin" && (
-                        <>
-                            <li><Link to="/products">Products</Link></li>
-                            <li><Link to="/admin/users">Users</Link></li>
-                            <li><Link to="/contact">Contact</Link></li>
-                            <li><Link to="/about">About</Link></li>
-                            <li><Link to="/cart">Cart</Link></li>
-                        </>
-                    )}
-                </ul>
-
-
-                {/* Estado de login */}
-                <div className="nav-user-box">
-                    {user ? (
-                        <>
-                            <span className="nav-user">
-                                <UserRound /> {user} ({role})
-                            </span>
-
-                            <button className="btn-logout" onClick={handleLogout}>
-                                Logout
-                            </button>
-                        </>
-                    ) : (
-                        <Link to="/login" className="login-btn">
-                            Login
-                        </Link>
-                    )}
-                </div>
-
-            </nav>
-
-            <nav className="nav navbar navbar-light">
-                <a className="navbar-brand" href="#">
-                    <img src={iconMetalRelics} width="40" alt="metal-relics-icon" />
-                </a>
-
-                <ul className="nav-list">
-
-                    <li><Link to="/">Home</Link></li>
-
-                    {role !== "admin" && (
-                        <>
-                            <li><Link to="/products">Products</Link></li>
-                            <li><Link to="/contact">Contact</Link></li>
-                            <li><Link to="/about">About</Link></li>
-                            <li><Link to="/cart">Cart</Link></li>
-                        </>
-
-                    )}
-
-                    {role === "admin" && (
-                        <>
-                            <li><Link to="/products">Products</Link></li>
-                            <li><Link to="/admin/users">Users</Link></li>
-                            <li><Link to="/contact">Contact</Link></li>
-                            <li><Link to="/about">About</Link></li>
-                            <li><Link to="/cart">Cart</Link></li>
-                        </>
-                    )}
-                </ul>
-
-
-                {/* Estado de login */}
-                <div className="nav-user-box">
-                    {user ? (
-                        <>
-                            <span className="nav-user">
-                                <UserRound /> {user} ({role})
-                            </span>
-
-                            <button className="btn-logout" onClick={handleLogout}>
-                                Logout
-                            </button>
-                        </>
-                    ) : (
-                        <Link to="/login" className="login-btn">
-                            Login
-                        </Link>
-                    )}
-                </div>
-
-            </nav>
-        </>
+                        <button className="btn-logout" onClick={handleLogout}>
+                            Logout
+                        </button>
+                    </>
+                ) : (
+                    <NavLink to="/login" className={linkClass}>
+                        Login
+                    </NavLink>
+                )}
+            </div>
+        </nav>
     );
 }
 

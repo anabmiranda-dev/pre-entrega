@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { ProductsFilterContext } from "../context/ProductsFilterContext";
+import iconUser from "../src/assets/icon-user.png";
 
 import "../src/App.css";
 
@@ -9,7 +10,7 @@ function Login() {
 
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
-
+  const [visible, setVisible] = useState(false);
   const { login } = useAuthContext();
   const { resetFilters } = useContext(ProductsFilterContext);
 
@@ -37,35 +38,46 @@ function Login() {
     alert("Credenciales inválidas");
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisible(true);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <form onSubmit={handleSubmit} className="login-form">
-      <img
-        src="/src/assets/icon-user.png"
-        alt="icon-user"
-        className="icon-user-login"
-      />
-      <div>
-        <input
-          placeholder="Username"
-          type="text"
-          value={usuario}
-          onChange={(e) => setUsuario(e.target.value)}
-          required
-        />
-      </div>
+    <>
+      <div className={`home home-container fade-in ${visible ? "visible" : ""}`}>
+        <form onSubmit={handleSubmit} className="login-form">
+          <img
+            src={iconUser}
+            alt="icon-user"
+            className="icon-user-login"
+          />
+          <div>
+            <input
+              placeholder="Username"
+              type="text"
+              value={usuario}
+              onChange={(e) => setUsuario(e.target.value)}
+              required
+            />
+          </div>
 
-      <div>
-        <input
-          placeholder="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </div>
+          <div>
+            <input
+              placeholder="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-      <button type="submit" className="login-button">Login</button>
-    </form>
+          <button type="submit" className="login-button">Login</button>
+        </form>
+      </div>
+    </>
   );
 }
 

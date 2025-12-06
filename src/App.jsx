@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { AuthProvider } from "../context/AuthContext";
 import { CarritoProvider } from "../context/CarritoContext";
 import { ProductsFilterProvider } from "../context/ProductsFilterContext";
+import { ProductsProvider } from "../context/ProductsContext";
 
 import Login from "/components/Login";
 import Dashboard from "/components/Dashboard";
@@ -114,93 +115,103 @@ function App() {
   return (
     <AuthProvider>
       <CarritoProvider>
-        <ProductsFilterProvider>
-          <Router>
-            <Nav />
+        <ProductsProvider>
+          <ProductsFilterProvider>
+            <Router>
+              <Nav />
 
-            <AlertMessage message={alertMessage} />
+              <AlertMessage message={alertMessage} />
 
-            <Routes>
-              {/* ADMIN PRODUCTS */}
-              <Route
-                path="/admin/products"
-                element={
-                  <AdminRoute>
-                    <AdminProducts />
-                  </AdminRoute>
-                }
-              />
+              <Routes>
+                {/* ADMIN PRODUCTS */}
+                <Route
+                  path="/admin/products"
+                  element={
+                    <AdminRoute>
+                      <AdminProducts />
+                    </AdminRoute>
+                  }
+                />
 
-              {/* PRODUCT DETAIL - view OR create */}
-              <Route path="/product/new" element={
-                <ProtectedRoute adminOnly={true}>
-                  <ProductDetail />
-                </ProtectedRoute>
-              } />
-
-              {/* PRODUCT DETAIL */}
-              <Route
-                path="/products/:id"
-                element={<ProductDetail products={products} addToCart={addToCart} />}
-              />
-
-              {/* USER PRODUCTS */}
-              <Route
-                path="/products/"
-                element={
-                  <Products
-                    products={products}
-                    loading={loading}
-                    category={category}
-                    setCategory={setCategory}
-                    sortOrder={sortOrder}
-                    setSortOrder={setSortOrder}
-                    searchQuery={searchQuery}     
-                    setSearchQuery={setSearchQuery} 
-                    addToCart={addToCart}
-                  />
-                }
-              />
-
-              {/* LOGIN */}
-              <Route path="/login" element={<Login />} />
-
-              {/* DASHBOARD */}
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
+                {/* PRODUCT DETAIL - view OR create */}
+                <Route path="/product/new" element={
+                  <ProtectedRoute adminOnly={true}>
+                    <ProductDetail />
                   </ProtectedRoute>
-                }
-              />
+                } />
 
-              {/* HOME */}
-              <Route path="/" element={<Home />} />
+                {/* PRODUCT DETAIL */}
+                <Route
+                path="/products/:id/details" 
+                element={<ProductDetail products={products} addToCart={addToCart} />} />
 
-              {/* OTHERS */}
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
+                {/* USER PRODUCTS */}
+                <Route
+                  path="/products/"
+                  element={
+                    <Products
+                      loading={loading}
+                      category={category}
+                      setCategory={setCategory}
+                      sortOrder={sortOrder}
+                      setSortOrder={setSortOrder}
+                      searchQuery={searchQuery}
+                      setSearchQuery={setSearchQuery}
+                      addToCart={addToCart}
+                    />
+                  }
+                />
 
-              {/* CART (solo logueado) */}
-              <Route
-                path="/cart"
-                element={
-                  <ProtectedRoute>
-                    <Cart cart={cart} clearCart={clearCart} />
-                  </ProtectedRoute>
-                }
-              />
+                {/* LOGIN */}
+                <Route path="/login" element={<Login />} />
 
-              {/* DEFAULT */}
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
+                {/*EDIT PRODUCT*/}
+                <Route
+                  path="/products/:id/edit"
+                  element={
+                    <AdminRoute>
+                      <ProductDetail editMode={true} />
+                    </AdminRoute>
+                  }
+                />
 
-            <Footer />
-          </Router>
-        </ProductsFilterProvider>
+                {/* DASHBOARD */}
+                <Route
+                  path="/dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <Dashboard />
+                    </ProtectedRoute>
+                  }
+                />
+
+                {/* HOME */}
+                <Route path="/" element={<Home />} />
+
+                {/* OTHERS */}
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+
+                {/* CART (solo logueado) */}
+                <Route
+                  path="/cart"
+                  element={
+                    <ProtectedRoute>
+                      <Cart cart={cart} clearCart={clearCart} />
+                    </ProtectedRoute>
+                  }
+                />
+
+                {/* DEFAULT */}
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
+
+              <Footer />
+            </Router>
+          </ProductsFilterProvider>
+        </ProductsProvider>
       </CarritoProvider>
-    </AuthProvider>
+    </AuthProvider >
   );
 }
 

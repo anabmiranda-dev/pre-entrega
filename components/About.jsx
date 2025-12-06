@@ -13,13 +13,13 @@ function About() {
     }, []);
 
     return (
-        <div className="container" style={{ textAlign: "center", marginTop: "50px" }}>
+        <div className="container container-about" style={{ textAlign: "center", marginTop: "50px" }}>
             <div className={`fade-in ${visible ? "visible" : ""}`}>
 
                 <h2 style={{ color: "#F87C63" }}>About us</h2>
 
                 <img
-                    src="/src/assets/about.jpg"
+                    src={about}
                     alt="about-us"
                     className="about-us-img"
                 />

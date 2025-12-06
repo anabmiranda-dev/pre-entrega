@@ -21,7 +21,7 @@ function Home() {
       <img src={homeLogo} alt="Company logo" className="home-logo" />
       <h1>Welcome to our store</h1>
       <p>Explore our products and find what you need.</p>
-      <Boton to="/products" texto="Shop now" className="home-button" icon={Zap} />
+      <Boton to="/products" text="Shop now" className="home-button" icon={Zap} />
     </div>
   );
 }

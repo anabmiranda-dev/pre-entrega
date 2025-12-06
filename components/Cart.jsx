@@ -34,10 +34,8 @@ function Cart() {
   }
 
   return (
-    <div className={`shopping-cart container fade-in ${visible ? "visible" : ""}`}>
-      
+    <div className={`shopping-cart fade-in ${visible ? "visible" : ""}`}>
       <h2 style={{ color: "#F87C63" }}>Shopping cart</h2>
-
       {cart.length === 0 ? (
         <div className="empty-cart fade-in visible">
           <h2>Nothing in your cart yet</h2>
@@ -48,13 +46,13 @@ function Cart() {
         </div>
       ) : (
         <>
-          <div className="cart-items cart-container">
+          <div className="cart-items">
             {cart.map((p) => (
               <div key={p.id} className="cart-item fade-in visible">
                 <img src={p.image} alt={p.name} className="cart-item-img" />
                 <div className="cart-item-details">
                   <h4>{p.name}</h4>
-                  <p>{p.quantity} × ${p.price.toFixed(2)}</p>
+                  <p className="quantity">{p.quantity} x ${Number(p.price).toFixed(2)}</p>
                   <p className="subtotal">
                     Subtotal: ${(p.quantity * p.price).toFixed(2)}
                   </p>
@@ -66,9 +64,9 @@ function Cart() {
           <div className="cart-summary fade-in visible">
             <h3>Total: ${total.toFixed(2)}</h3>
             <div className="button-grid">
-              <Boton texto="Clear Cart" onClick={clearCart} className="button-danger" />
-              <Boton texto="Checkout" className="button" />
-              <Boton texto="Continue shopping" className="button" to="/products" />
+              <Boton text="Clear Cart" onClick={clearCart} className="button-danger" />
+              <Boton text="Checkout" className="button" />
+              <Boton text="Continue shopping" className="button" to="/products" />
             </div>
           </div>
         </>
